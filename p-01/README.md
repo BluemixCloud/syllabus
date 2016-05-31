@@ -12,7 +12,7 @@ To learn how to build a fullstack application using Node and Angular. This appli
 
 ## Instructions
 Fork this repo:
-`https://hub.jazz.net/project/chyld/full-stack-template/overview`
+https://hub.jazz.net/project/chyld/full-stack-template/overview
 
 Clone into C9 `~/workspace` directory
 
