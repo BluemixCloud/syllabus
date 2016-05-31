@@ -1,7 +1,7 @@
 # Project 1
 
 ## Purpose
-To learn how to build a fullstack application using Node and Angular.
+To learn how to build a fullstack application using Node and Angular. This application will fetch the top games from the Twitch API and display them along with their box art on the HTML page.
 
 ## Prerequisites
 - C9
@@ -78,3 +78,92 @@ $scope.add = function(){
   $scope.nums.push($scope.num);
 };
 ```
+
+Now the student can add as many numbers to the array as they like.
+
+This is the end of the Angular tutorial. Let's resume the project.
+
+Have students go to https://api.twitch.tv/kraken/games/top. They can see the JSON returned from the API. They will have Angular fetch this data from the click of a button and then display the Name and Box Art.
+
+Add a button to fetch the data. Also change the page title and description.
+- index.html
+```html
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Top Games from Twitch</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <button ng-click="twitch()">Get Games</button>
+  </div>
+</div>
+```
+
+The button does nothing, so wire it up in the JS file. Remember to inject `$http` in the controller's function. Log out the response to ensure the data is coming back and to note the structure of the data.
+- index.js
+```js
+angular.module('template', [])
+.controller('MainCtrl', function($scope, $http){
+  $scope.twitch = function(){
+    $http.get('https://api.twitch.tv/kraken/games/top')
+    .then(function(rsp){
+      console.log(rsp);
+    });
+  };
+});
+```
+
+Note the array is under `rsp.data.top`. Create a property on `$scope` that refers to this data.
+- index.js
+```js
+angular.module('template', [])
+.controller('MainCtrl', function($scope, $http){
+  $scope.twitch = function(){
+    $http.get('https://api.twitch.tv/kraken/games/top')
+    .then(function(rsp){
+      $scope.games = rsp.data.top;
+    });
+  };
+});
+```
+
+Now the data is ready. All that is left is to loop over the `games` array in the HTML file and display the name and box art for each game.
+- index.html
+```html
+<div class="row">
+  <div class="col-xs-4">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Art</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="game in games">
+          <td>{{game.game.name}}</td>
+          <td><img src="{{game.game.box.small}}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-4"></div>
+  <div class="col-xs-4"></div>
+</div>
+```
+
+If all works, then ready to deploy.
+
+Edit the `manifest.yml` file, changing the `host` and `path` to a unique value.
+
+Commit and push all changes to JazzHub.
+
+Push app to Cloud Foundry.
+
+`cf push`
+
+Wait for app to deploy, then test out in production.
+
+Project complete.
