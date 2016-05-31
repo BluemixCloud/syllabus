@@ -36,3 +36,15 @@ The HTML file uses Twitter Bootstrap. Go to http://getbootstrap.com/css/ and exp
 Review some basic HTML tags: H1 to H6, P, A, IMG, UL/LI.
 
 Show them how Angular works.
+```js
+$scope.x = 3;
+$scope.y = "bob";
+$scope.z = [4,5,6];
+```
+```html
+  <div>
+    {{x}}
+    {{y}}
+    {{z}}
+  </div>
+```
