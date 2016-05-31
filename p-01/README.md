@@ -35,16 +35,46 @@ The HTML file uses Twitter Bootstrap. Go to http://getbootstrap.com/css/ and exp
 
 Review some basic HTML tags: H1 to H6, P, A, IMG, UL/LI.
 
-Show them how Angular works.
+Show them how Angular works. Create some properties on `$scope` and show students how those values can be seen in the HTML.
+- index.js
 ```js
-$scope.x = 3;
-$scope.y = "bob";
-$scope.z = [4,5,6];
+angular.module('template', [])
+.controller('MainCtrl', function($scope){
+  $scope.x = 3;
+  $scope.y = "bob";
+  $scope.nums = [4,5,6];
+});
 ```
+
+Use the mustache syntax to show them one-way data binding.
+- index.html
 ```html
-  <div>
-    {{x}}
-    {{y}}
-    {{z}}
-  </div>
+<div>
+  {{x}}
+  {{y}}
+  {{nums}}
+</div>
+```
+
+Now show how to loop over an array in HTML. Put in the following code to loop over the `nums` array.
+- index.html
+```html
+<ul ng-repeat="n in nums track by $index">
+  <li>Number: {{n}} Squared: {{n*n}}</li>
+</ul>
+```
+
+Next, let's add a button and input field so that we can dynamically add a value to the array and have it update the HTML automatically.
+- index.html
+```html
+<input type="number" ng-model="num">
+<button ng-click="add()">Add</button>
+```
+
+The `add` button does nothing, so let's wire it up in the controller.
+- index.js
+```js
+$scope.add = function(){
+  $scope.nums.push($scope.num);
+};
 ```
