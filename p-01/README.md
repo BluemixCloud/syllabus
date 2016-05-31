@@ -14,13 +14,13 @@ https://hub.jazz.net/project/chyld/full-stack-template/overview
 Clone into C9 ~/workspace directory
 
 Install node modules
-npm install
+`npm install`
 
 Run pre-made test
-npm test
+`npm test`
 
 Start server
-nodemon server/index.js
+`nodemon server/index.js`
 
 Open browser
 http://WORKSPACE-USER.c9users.io/
